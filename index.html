@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Celestial Navigation</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="main.js" defer></script>
+        <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    </head>
+    <body>
+<!-- === Header, Presentation Screen ==================================== -->
+<!-- ==================================================================== -->
+        <header>
+            <div class="heading-container">
+                <h1>Fix position of the vessel from Stars & Planets</h1>
+                <img src="./images/sextant.png" alt="" id="sextant-image">
+            </div>
+            <p class="header__autofill">If you want to try how it works <span>Click here</span> to autofill all required data inputs and go to calculation form</p>
+            <p class="header__reset"><span>Reset the form</span> to start everything from zero</p>
+            <button>Go to calculation form</button>
+        </header>
+<!-- === Data, Speed, Course & Weather Data ============================= -->
+<!-- ==================================================================== -->
+        <section class="data-container">
+            <div class="date-box">
+                <label for="date">Date</label>
+                <input type="date" id="date">
+            </div>
+            <div class="speed-box">
+                <label for="speed">Speed over ground</label>
+                <input type="text" id="speed" placeholder="00.0" maxlength="4"><span>knots</span>
+            </div>
+            <div class="course-box">
+                <label for="course">Course over ground</label>
+                <input type="text" id="course" placeholder="000" maxlength="3"><span>degrees</span>
+            </div>
+            <div class="weather-box">
+                <label for="pressure">Atmosphere Pressure</label>
+                <input type="text" id="pressure" placeholder="0000" maxlength="4">
+                <label for="temperatue">& Temperature</label>
+                <input type="text" id="temperature" placeholder="00" maxlength="2">
+            </div>
+        </section>
+<!-- === Initial Data Section =========================================== -->
+<!-- ==================================================================== -->
+        <section class="initial-data grid">
+            <!-- Headings in Column 1 -->
+            <h3 class="heading-1 heading-highlight">Celestial Body</h3>
+            <h3 class="view-info-heading heading-2 heading-highlight">Time (UTC)<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>Time (UTC)</span>
+                Time of sight being taken, in UTC
+            </p>
+            <h3 class="view-info-heading heading-3 heading-highlight">EP Latitude<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>Estimated Position</span>
+                Getting our EP:<br>
+                Method 1<br>
+                From last known position run on your course<br>
+                for the distance run based on information in your Log Book<br>
+                Method 2<br>
+                Pick a position that is nearby<br>
+                (only possible if you know where you are)
+            </p>
+            <h3 class="heading-4 heading-highlight">EP Longitude</h3>
+            <h3 class="view-info-heading heading-5 heading-highlight">SEXTANT Altitude<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>SEXTANT Altitude</span>
+                Altitude of body as observed on your sextant
+            </p>
+            <h3 class="view-info-heading heading-6 heading-highlight">Height of Eye, m<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>Height of Eye</span>
+                Height of the observers eye above sea level
+            </p>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn1">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 2 -->
+            <input type="text" class="celestial-body name-1 hover1 row1" placeholder="Body 1">
+            <input type="text" placeholder="00" class="input-style time-1h hover1 row2" maxlength="2">
+            <span class="time-1h time-semicolon-h">:</span>
+            <input type="text" placeholder="00" class="input-style time-1m hover1 row2" maxlength="2">
+            <span class="time-1m time-semicolon-m">:</span>
+            <input type="text" placeholder="00" class="input-style time-1s hover1 row2" maxlength="2">
+            <span class="time-1s"></span>
+            <input type="text" placeholder="00" class="input-style right-align lat-deg lat-1d hover1 row3" maxlength="2">
+            <span class="lat-1d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style lat-min lat-1m hover1 row3" maxlength="4">
+            <span class="lat-1m minute-sign"></span>
+            <input type="text" class="lat-sign lat-1s north-south-btn row3" id="btn-lat-1" value="N" readonly>
+            <input type="text" placeholder="000" class="input-style right-align long-deg long-1d hover1 row4" maxlength="3">
+            <span class="long-1d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style long-min long-1m hover1 row4" maxlength="4">
+            <span class="long-1m minute-sign"></span>
+            <input type="text" class="long-sign long-1s east-west-btn row4" id="btn-long-1" value="E" readonly>
+            <input type="text" placeholder="00" class="input-style right-align altD alt-1d hover1 row5" maxlength="2">
+            <span class="alt-1d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style altM alt-1m hover1 row5" maxlength="4">
+            <span class="alt-1m minute-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style hoe-1 hover1 row6" maxlength="4">
+            <span class="hoe-1"></span>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn2">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 3 -->
+            <input type="text" class="celestial-body name-2 hover1 row1" placeholder="Body 2">
+            <input type="text" placeholder="00" class="input-style time-2h hover1 row2" maxlength="2">
+            <span class="time-2h time-semicolon-h">:</span>
+            <input type="text" placeholder="00" class="input-style time-2m hover1 row2" maxlength="2">
+            <span class="time-2m time-semicolon-m">:</span>
+            <input type="text" placeholder="00" class="input-style time-2s hover1 row2" maxlength="2">
+            <span class="time-2s"></span>
+            <input type="text" placeholder="00" class="input-style right-align lat-deg lat-2d hover1 row3" maxlength="2">
+            <span class="lat-2d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style lat-min lat-2m hover1 row3" maxlength="4">
+            <span class="lat-2m minute-sign"></span>
+            <input type="text" class="lat-sign lat-2s north-south-btn row3" id="btn-lat-2" value="N" readonly>
+            <input type="text" placeholder="000" class="input-style right-align long-deg long-2d hover1 row4" maxlength="3">
+            <span class="long-2d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style long-min long-2m hover1 row4" maxlength="4">
+            <span class="long-2m minute-sign"></span>
+            <input type="text" class="long-sign long-2s east-west-btn row4" id="btn-long-2" value="E" readonly>
+            <input type="text" placeholder="00" class="input-style right-align altD alt-2d hover1 row5" maxlength="2">
+            <span class="alt-2d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style altM alt-2m hover1 row5" maxlength="4">
+            <span class="alt-2m minute-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style hoe-2 hover1 row6" maxlength="4">
+            <span class="hoe-2"></span>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn3">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 4 -->
+            <input type="text" class="celestial-body name-3 hover1 row1" placeholder="Body 3">
+            <input type="text" placeholder="00" class="input-style time-3h hover1 row2" maxlength="2">
+            <span class="time-3h time-semicolon-h">:</span>
+            <input type="text" placeholder="00" class="input-style time-3m hover1 row2" maxlength="2">
+            <span class="time-3m time-semicolon-m">:</span>
+            <input type="text" placeholder="00" class="input-style time-3s hover1 row2" maxlength="2">
+            <span class="time-3s"></span>
+            <input type="text" placeholder="00" class="input-style right-align lat-deg lat-3d hover1 row3" maxlength="2">
+            <span class="lat-3d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style lat-min lat-3m hover1 row3" maxlength="4">
+            <span class="lat-3m minute-sign"></span>
+            <input type="text" class="lat-sign lat-3s north-south-btn row3 row" id="btn-lat-3" value="N" readonly>
+            <input type="text" placeholder="000" class="input-style right-align long-deg long-3d hover1 row4" maxlength="3">
+            <span class="long-3d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style long-min long-3m hover1 row4" maxlength="4">
+            <span class="long-3m minute-sign"></span>
+            <input type="text" class="long-sign long-3s east-west-btn row4" id="btn-long-3" value="E" readonly>
+            <input type="text" placeholder="00" class="input-style right-align altD alt-3d hover1 row5" maxlength="2">
+            <span class="alt-3d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style altM alt-3m hover1 row5" maxlength="4">
+            <span class="alt-3m minute-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style hoe-3 hover1 row6" maxlength="4">
+            <span class="hoe-3"></span>
+        </section>
+<!-- === Go to LHA Calculation Section Button =========================== -->
+        <section class="initial-data__update-info-section">
+            <div class="initial-data__update-info-message">
+                <p>Well done!<br> Recheck carefully your entered data<br> and press the button next to this text</p>
+                <span>*Press the button again every time you make some changes</span>
+            </div>
+            <button class="initial-data__update-info-btn">Press this button to proceed!</button>
+        </section>
+<!-- === LHA Calculation Section ======================================== -->
+<!-- ==================================================================== -->
+        <section class="lha-calculation grid">
+            <!-- Headings in Column 1 -->
+            <h3 class="view-info-heading heading-7">GHA Body<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>Greenwich Hour Angle</span>
+                The hour angle between the Greenwich Meridian and the meridian of a celestial body is known as the Greenwich Hour Angle. Equivalent to longitude on earth. It can be followed by East or West. The value of GHA is taken from Brown's Nautical Almanac Daily Pages entering with appropriate date and full hours time UTC.
+            </p>
+            <h3 class="view-info-heading heading-8">+ SHA (Only Star)<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>Sidereal Hour Angle</span>
+                Because the fixed stars (they are not really fixed, but they are so far away that they don't seem to move much), don't move relative to each other, rather than give the GHA of each star for each hour of the day, for each day of the year, the Nautical Almanac publishes only the list of GHA for a fictitious point called "first point of Aries" (also denoted by the Zodiac sign of the Ram). The SHA of the stars is simply a coordinate relative to this point. So to calculate the GHA of a star all you have to do is: GHA(star) = SHA(star) + GHA(aries). The value of SHA is taken Almanac Daily Pages entering with appropriate date and full hours time UTC.
+            </p>
+            <h3 class="view-info-heading heading-9">+/- Cv (Moon /<img src="icons\question-mark.svg" alt=""><br> Planet)</h3>
+            <p class="view-info hidden">
+                <span>Cv Correction</span>
+                The value of v-correction is taken from the bottom of Daily Pages of Brown's Nautical Almanac for appropriate planet for further entering and taking of the value from the Increments and Corrections table.
+                If GHA between current time and next hour is increasing add the v Correction value
+            </p>
+            <h3 class="view-info-heading heading-10">+ INCREMENT<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>Increment</span>
+                The value is taken from the Increments and Corrections table of Brown's Nautical Almanac entering with minutes and seconds of our UTC time.
+            </p>
+            <h3 class="heading-11 hidden">GHA Calculated</h3>
+            <h3 class="view-info-heading heading-12 hidden">+/- EP Longitude<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>Longitude</span>
+                If we have E longitude then add to GHA Calculated.<br>
+                If we have W longitude then subtract.
+            </p>
+            <h3 class="view-info-heading heading-13 hidden">LHA Body<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>Local Hour Angle</span>
+                LHA is the angle between the meridian of the observer and the meridian of the geographical position of the celestial body.<br>
+                If LHA > 360 then subtract 360 from it.<br>
+                If LHA < 0 then add 360 to it.<br>
+            </p>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn4">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 2 -->
+            <input type="text" placeholder="000" class="input-style right-align gha-deg gha-1d row7 hover1" maxlength="3">
+            <span class="gha-1d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style gha-min gha-1m row7 hover1" maxlength="4">
+            <span class="gha-1m minute-sign"></span>
+            <input type="text" placeholder="000" class="input-style right-align sha-deg sha-1d row8 hover1" maxlength="3">
+            <span class="sha-1d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style sha-min sha-1m row8 hover1" maxlength="4">
+            <span class="sha-1m minute-sign"></span>
+            <input type="text" class="cv-sign cv-1 plus-minus-btn row9" id="cv-btn1" value="+" readonly>
+            <input type="text" placeholder="00.0" class="input-style cv cv-1 row9 hover1" maxlength="4">
+            <span class="cv-1 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00" class="input-style right-align inc-deg inc-1d row10 hover1" maxlength="2">
+            <span class="inc-1d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style inc-min inc-1m row10 hover1" maxlength="4">
+            <span class="inc-1m minute-sign"></span>
+            <input type="text" placeholder="000" class="input-style right-align ghaC-deg ghaC-1d row11 hidden" maxlength="3" readonly>
+            <span class="ghaC-1d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style ghaC-min ghaC-1m row11 hidden" maxlength="4" readonly>
+            <span class="ghaC-1m minute-sign hidden"></span>
+            <input type="text" placeholder="000" class="input-style right-align longC-deg longC-1d row12 hidden" maxlength="3" readonly>
+            <span class="longC-1d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style longC-min longC-1m row12 hidden" maxlength="4" readonly>
+            <span class="longC-1m minute-sign hidden"></span>
+            <span class="longC-sign longC-1s row12 hidden">**</span>
+            <input type="text" value="" placeholder="000" class="input-style right-align lha-deg lha-1d row13 hidden" maxlength="3" readonly>
+            <span class="lha-1d degree-sign hidden"></span>
+            <input type="text" value="" placeholder="00.0" class="input-style lha-min lha-1m row13 hidden" maxlength="4" readonly>
+            <span class="lha-1m minute-sign hidden"></span>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn5">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 3 -->
+            <input type="text" placeholder="000" class="input-style right-align gha-deg gha-2d row7 hover1" maxlength="3">
+            <span class="gha-2d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style gha-min gha-2m row7 hover1" maxlength="4">
+            <span class="gha-2m minute-sign"></span>
+            <input type="text" placeholder="000" class="input-style right-align sha-deg sha-2d row8 hover1" maxlength="3">
+            <span class="sha-2d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style sha-min sha-2m row8 hover1" maxlength="4">
+            <span class="sha-2m minute-sign"></span>
+            <input type="text" class="cv-sign cv-2 plus-minus-btn row9" id="cv-btn2" value="+" readonly>
+            <input type="text" placeholder="00.0" class="input-style cv cv-2 row9 hover1" maxlength="4">
+            <span class="cv-2 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00" class="input-style right-align inc-deg inc-2d row10 hover1" maxlength="2">
+            <span class="inc-2d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style inc-min inc-2m row10 hover1" maxlength="4">
+            <span class="inc-2m minute-sign"></span>
+            <input type="text" placeholder="000" class="input-style right-align ghaC-deg ghaC-2d row11 hidden" maxlength="3" readonly>
+            <span class="ghaC-2d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style ghaC-min ghaC-2m row11 hidden" maxlength="4" readonly>
+            <span class="ghaC-2m minute-sign hidden"></span>
+            <input type="text" placeholder="000" class="input-style right-align longC-deg longC-2d row12 hidden" maxlength="3" readonly>
+            <span class="longC-2d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style longC-min longC-2m row12 hidden" maxlength="4" readonly>
+            <span class="longC-2m minute-sign hidden"></span>
+            <span class="longC-sign longC-2s row12 hidden">**</span>
+            <input type="text" placeholder="000" class="input-style right-align lha-deg lha-2d row13 hidden" maxlength="3" readonly>
+            <span class="lha-2d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style lha-min lha-2m row13 hidden" maxlength="4" readonly>
+            <span class="lha-2m minute-sign hidden"></span>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn6">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 4 -->
+            <input type="text" placeholder="000" class="input-style right-align gha-deg gha-3d row7 hover1" maxlength="3">
+            <span class="gha-3d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style gha-min gha-3m row7 hover1" maxlength="4">
+            <span class="gha-3m minute-sign"></span>
+            <input type="text" placeholder="000" class="input-style right-align sha-deg sha-3d row8 hover1" maxlength="3">
+            <span class="sha-3d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style sha-min sha-3m row8 hover1" maxlength="4">
+            <span class="sha-3m minute-sign"></span>
+            <input type="text" class="cv-sign cv-3 plus-minus-btn row9" id="cv-btn3" value="+" readonly>
+            <input type="text" placeholder="00.0" class="input-style cv cv-3 row9 hover1" maxlength="4">
+            <span class="cv-3 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00" class="input-style right-align inc-deg inc-3d row10 hover1" maxlength="2">
+            <span class="inc-3d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style inc-min inc-3m row10 hover1" maxlength="4">
+            <span class="inc-3m minute-sign"></span>
+            <input type="text" placeholder="000" class="input-style right-align ghaC-deg ghaC-3d row11 hidden" maxlength="3" readonly>
+            <span class="ghaC-3d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style ghaC-min ghaC-3m row11 hidden" maxlength="4" readonly>
+            <span class="ghaC-3m minute-sign hidden"></span>
+            <input type="text" placeholder="000" class="input-style right-align longC-deg longC-3d row12 hidden" maxlength="3" readonly>
+            <span class="longC-3d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style longC-min longC-3m row12 hidden" maxlength="4" readonly>
+            <span class="longC-3m minute-sign hidden"></span>
+            <span class="longC-sign longC-3s row12 hidden">**</span>
+            <input type="text" placeholder="000" class="input-style right-align lha-deg lha-3d row13 hidden" maxlength="3" readonly>
+            <span class="lha-3d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style lha-min lha-3m row13 hidden" maxlength="4" readonly>
+            <span class="lha-3m minute-sign hidden"></span>
+        </section>
+<!-- === Declination Calculation Section ================================ -->
+<!-- ==================================================================== -->
+        <section class="dec-calculation grid">
+            <!-- Headings in Column 1 -->
+            <h3 class="view-info-heading heading-14">DEC Body<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>Declination</span>
+                Declination corresponds to terrestrial latitude and is defined as the angular distance of a heavenly body north or south of the celestial equator. The value of GHA is taken from Brown's Nautical Almanac Daily Pages entering with appropriate date and full hours time UTC.
+            </p>
+            <h3 class="view-info-heading heading-15">Cd (Sun / Moon /<img src="icons\question-mark.svg" alt=""><br>Planet)</h3>
+            <p class="view-info hidden">
+                <span>Cd Correction</span>
+                The value of d-correction is taken from the bottom of Daily Pages of Brown's Nautical Almanac for appropriate planet for further entering and taking of the value from the Increments and Corrections table. If Dec between current time and next hour is increasing add the d Correction value
+            </p>
+            <h3 class="heading-16 hidden">DEC Actual</h3>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn7">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 2 -->
+            <input type="text" placeholder="00" class="input-style right-align dec-deg dec-1d row14 hover1" maxlength="2">
+            <span class="dec-1d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style dec-min dec-1m row14 hover1" maxlength="4">
+            <span class="dec-1m minute-sign"></span>
+            <input type="text" class="dec-sign dec-1s north-south-btn row14" id="btn-dec-1" value="N" readonly>
+            <input type="text" class="cd-sign cd-1 plus-minus-btn row15" id="cd-btn1" value="+" readonly>
+            <input type="text" placeholder="00.0" class="input-style cd cd-1 row15 hover1" maxlength="4">
+            <span class="cd-1 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00" class="input-style right-align decC-deg decC-1d row16 hidden" maxlength="2" readonly>
+            <span class="decC-1d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style decC-min decC-1m row16 hidden" maxlength="4" readonly>
+            <span class="decC-1m minute-sign hidden"></span>
+            <span class="decC-sign decC-1s row16 hidden">**</span>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn8">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 3 -->
+            <input type="text" placeholder="00" class="input-style right-align dec-deg dec-2d row14 hover1" maxlength="2">
+            <span class="dec-2d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style dec-min dec-2m row14 hover1" maxlength="4">
+            <span class="dec-2m minute-sign"></span>
+            <input type="text" class="dec-sign dec-2s north-south-btn row14" id="btn-dec-2" value="N" readonly>
+            <input type="text" class="cd-sign cd-2 plus-minus-btn row15" id="cd-btn2" value="+" readonly>
+            <input type="text" placeholder="00.0" class="input-style cd cd-2 row15 hover1" maxlength="4">
+            <span class="cd-2 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00" class="input-style right-align decC-deg decC-2d row16 hidden" maxlength="2" readonly>
+            <span class="decC-2d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style decC-min decC-2m row16 hidden" maxlength="4" readonly>
+            <span class="decC-2m minute-sign hidden"></span>
+            <span class="decC-sign decC-2s row16 hidden">**</span>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn9">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 4 -->
+            <input type="text" placeholder="00" class="input-style right-align dec-deg dec-3d row14 hover1" maxlength="2">
+            <span class="dec-3d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style dec-min dec-3m row14 hover1" maxlength="4">
+            <span class="dec-3m minute-sign"></span>
+            <input type="text" class="dec-sign dec-3s north-south-btn row14" id="btn-dec-3" value="N" readonly>
+            <input type="text" class="cd-sign cd-3 plus-minus-btn row15" id="cd-btn3" value="+" readonly>
+            <input type="text" placeholder="00.0" class="input-style cd cd-3 row15 hover1" maxlength="4">
+            <span class="cd-3 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00" class="input-style right-align decC-deg decC-3d row16 hidden" maxlength="2" readonly>
+            <span class="decC-3d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style decC-min decC-3m row16 hidden" maxlength="4" readonly>
+            <span class="decC-3m minute-sign hidden"></span>
+            <span class="decC-sign decC-3s row16 hidden">**</span>
+            </select>
+        </section>
+<!-- === Go to Intercept Calculation Section Button ===================== -->
+        <section class="lha-dec__update-info-section">
+            <div class="lha-dec__update-info-message">
+                <p>Half a way behind!<br>After clicking the button<br> you will see<br> first calculated data added!</p>
+                <span>*Press the button again every time you make some changes</span>
+            </div>
+            <div class="lha-dec__update-info-middle">
+                <span>Take a moment</span>
+                <div>
+                    <iframe src='https://gfycat.com/ifr/BlissfulIcyCoypu' frameborder='0' scrolling='no' allowfullscreen></iframe>
+                </div>
+            </div>
+            <button class="lha-dec__update-info-btn">This is your<br> second button<br> to press!</button>
+        </section>
+<!-- === Azimuth Calculation Section ==================================== -->
+<!-- ==================================================================== -->
+        <section class="azimuth-calculation grid">
+            <!-- Headings in Column 1 -->
+            <h3 class="view-info-heading heading-29">Calculated<img src="icons\question-mark.svg" alt=""><br>Altitude</h3>
+            <p class="view-info hidden">
+                <span>Calculated Altitude</span>
+                Formula is used for calculations:<br>
+                asin(cosLHA*cosLAT*cosDEC±sinLAT*sinDEC)<br>
+                where:<br>
+                "±" depends on LAT and DEC have the same symbol or not;<br>
+                if both N or S the use "+"<br>
+                if one N and another S then use "-"<br>
+            </p>
+            <h3 class="view-info-heading heading-30">Quadrant Azimuth<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>Quadrant Azimuth</span>
+                Formula is used for calculations:<br>
+                atan((sin-LHA/(cos±LAT*tan±DEC - sin±LAT*cos-LHA))<br>
+                where LHA always has a negative value;<br>
+                for LAT and DEC<br>
+                "+" if N<br>
+                "-" if S<br>
+                Azimuth Formula Result Naming Conversation Table<br>
+                LHA (000 - 180)<br>
+                Az "+": S Az W<br>
+                Az "-": N Az W<br>
+                LHA (180 - 360)<br>
+                Az "+": N Az E<br>
+                Az "-": S Az E<br>
+            </p>
+            <h3 class="view-info-heading heading-31">True Azimuth<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>True Azimuth</span>
+                To convert Azimuth to True:<br>
+                N Az E = 0 + Az<br>
+                S Az E = 180 - Az<br>
+                S Az W = 180 + Az<br>
+                N Az W = 360 - Az
+            </p>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn13">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 2 -->
+            <input type="text" placeholder="00" class="input-style right-align altC-deg altC-1d row29" maxlength="3" readonly>
+            <span class="altC-1d degree-sign "></span>
+            <input type="text" placeholder="00.0" class="input-style altC-min altC-1m row29" maxlength="4" readonly>
+            <span class="altC-1m minute-sign"></span>
+            <span class="azimQ-sign-1 azimQ-1s row30">**</span>
+            <input type="text" placeholder="00.0" class="input-style azimQ azimQ-1d row30" maxlength="4" readonly>
+            <span class="azimQ-1d degree-sign degree-shift-right-1"></span>
+            <span class="azimQ-sign-2 azimQ-1ss row30">**</span>
+            <input type="text" value="000.0" class="input-style azimT azimT-1 row31" maxlength="5" readonly>
+            <span class="azimT-1 degree-sign degree-shift-right-2"></span>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn14">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 3 -->
+            <input type="text" placeholder="00" class="input-style right-align altC-deg altC-2d row29" maxlength="3" readonly>
+            <span class="altC-2d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style altC-min altC-2m row29" maxlength="4" readonly>
+            <span class="altC-2m minute-sign"></span>
+            <span class="azimQ-sign-1 azimQ-2s row30">**</span>
+            <input type="text" placeholder="00.0" class="input-style azimQ azimQ-2d row30" maxlength="4" readonly>
+            <span class="azimQ-2d degree-sign degree-shift-right-1"></span>
+            <span class="azimQ-sign-2 azimQ-2ss row30">**</span>
+            <input type="text" placeholder="000.0" class="input-style azimT azimT-2 row31" maxlength="5" readonly>
+            <span class="azimT-2 degree-sign degree-shift-right-2"></span>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn15">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 4 -->
+            <input type="text" placeholder="00" class="input-style right-align altC-deg altC-3d row29" maxlength="3" readonly>
+            <span class="altC-3d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style altC-min altC-3m row29" maxlength="4" readonly>
+            <span class="altC-3m minute-sign"></span>
+            <span class="azimQ-sign-1 azimQ-3s row30">**</span>
+            <input type="text" placeholder="00.0" class="input-style azimQ azimQ-3d row30" maxlength="4" readonly>
+            <span class="azimQ-3d degree-sign degree-shift-right-1"></span>
+            <span class="azimQ-sign-2 azimQ-3ss row30">**</span>
+            <input type="text" placeholder="000.0" class="input-style azimT azimT-3 row31" maxlength="5" readonly>
+            <span class="azimT-3 degree-sign degree-shift-right-2"></span>
+        </section>
+<!-- === Intercept Calculation Section ================================== -->
+<!-- ==================================================================== -->
+        <section class="intercept-calculation grid">
+            <!-- Headings in Column 1 -->
+            <h3 class="heading-17">SEXTANT Altitude</h3>
+            <h3 class="view-info-heading heading-18">+/- INDEX Error<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>INDEX Error</span>
+                Inder Error is known error of your sextant<br>
+                - On the Arc: subtract from the Sextant Altitude<br>
+                - Off the Arc: add onto the Sextant Altitude
+            </p>
+            <h3 class="heading-19 hidden">OBSERVED Altitude</h3>
+            <h3 class="view-info-heading heading-20">- DIP<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>DIP Correction</span>
+                The correction for the height of eye of observer<br>
+                is taken from Norie's Nautical Tables --><br>
+                Altitude Correction Tables --><br>
+                DIP entering with our Height of Eye
+            </p>
+            <h3 class="heading-21 hidden">Appearant Altitude</h3>
+            <h3 class="view-info-heading heading-22">+/- TC<img src="icons\question-mark.svg" alt=""></h3>
+            <p class="view-info hidden">
+                <span>TC Correction</span>
+                Refraction correction is taken from Norie's Nautical Tables --><br>
+                Altitude Correction Tables --><br> 
+                Stars and Planets entering with Appearant Altitude
+            </p>
+            <h3 class="view-info-heading heading-23">+ AC (Mars / Moon<img src="icons\question-mark.svg" alt=""><br>/ Venus</h3>
+            <p class="view-info hidden">
+                <span>AC Correction</span>
+                Additional refraction correction on for Mars / Moon / Venus<br>
+                is taken from Norie's Nautical Tables --><br>
+                Altitude Correction Tables --><br> 
+                Stars and Planets entering with Appearant Altitude
+            </p>
+            <h3 class="heading-24">- ULC (Moon)</h3>
+            <h3 class="view-info-heading heading-25">+/- ARC (Non<img src="icons\question-mark.svg" alt=""><br>Standard Condition)</h3>
+            <p class="view-info hidden">
+                <span>ARC Correction</span>
+                Value is taken from Norie's Nautical Tables --><br> 
+                Altitude Correction Tables --><br> 
+                Additional Refraction Corrections for<br>
+                Non Standard Conditions entering with our Atmosphere<br>
+                Pressure and Temperature.
+            </p>
+            <h3 class="heading-26 hidden">TRUE ALTITUDE</h3>
+            <h3 class="heading-27 hidden">- Calculated<br> Altitude</h3>
+            <h3 class="heading-28 hidden">INTERCEPT</h3>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn10">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 2 -->
+            <input type="text" placeholder="00" class="input-style right-align altCopyD altCopy-1d row17" maxlength="2" readonly>
+            <span class="altCopy-1d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style altCopyM altCopy-1m row17" maxlength="4" readonly>
+            <span class="altCopy-1m minute-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style index index-1 row18 hover1" maxlength="4">
+            <span class="index-1 minute-sign minute-shift-left"></span>
+            <input type="text" class="index-sign index-1 plus-minus-btn row18" id="index-btn1" value="+" readonly>
+            <input type="text" placeholder="00" class="input-style right-align altObsD altObs-1d row19 hidden" maxlength="2" readonly>
+            <span class="altObs-1d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style altObsM altObs-1m row19 hidden" maxlength="4" readonly>
+            <span class="altObs-1m minute-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style dip dip-1 row20 hover1" maxlength="4">
+            <span class="dip-1 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00" class="input-style right-align altAprD altApr-1d row21 hidden" maxlength="2" readonly>
+            <span class="altApr-1d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style altAprM altApr-1m row21 hidden" maxlength="4" readonly>
+            <span class="altApr-1m minute-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style tc tc-1 row22 hover1" maxlength="4">
+            <span class="tc-1 minute-sign minute-shift-left"></span>
+            <input type="text" class="tc-sign tc-1 plus-minus-btn row22" id="tc-btn1" value="+" readonly>
+            <input type="text" placeholder="00.0" class="input-style ac ac-1 row23 hover1" maxlength="4">
+            <span class="ac-1 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00.0" class="input-style ulc ulc-1 row24 hover1" maxlength="4">
+            <span class="ulc-1 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00.0" class="input-style arc arc-1 row25 hover1" maxlength="4">
+            <span class="arc-1 minute-sign minute-shift-left"></span>
+            <input type="text" class="arc-sign arc-1 plus-minus-btn row25" id="arc-btn1" value="+" readonly>
+            <input type="text" placeholder="00" class="input-style right-align altTrueD altTrue-1d row26 hidden" maxlength="2" readonly>
+            <span class="altTrue-1d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style altTrueM altTrue-1m row26 hidden" maxlength="4" readonly>
+            <span class="altTrue-1m minute-sign hidden"></span>
+            <input type="text" placeholder="00" class="input-style right-align altCCopyD altCCopy-1d row27 hidden" maxlength="2" readonly>
+            <span class="altCCopy-1d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style altCCopyM altCCopy-1m row27 hidden" maxlength="4" readonly>
+            <span class="altCCopy-1m minute-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style int int-1 row28 hidden" maxlength="6" readonly>
+            <span class="int-1 minute-sign minute-shift-left hidden"></span>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn11">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 2 -->
+            <input type="text" placeholder="00" class="input-style right-align altCopyD altCopy-2d row17" maxlength="2" readonly>
+            <span class="altCopy-2d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style altCopyM altCopy-2m row17" maxlength="4" readonly>
+            <span class="altCopy-1m minute-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style index index-2 row18 hover1" maxlength="4">
+            <span class="index-2 minute-sign minute-shift-left"></span>
+            <input type="text" class="index-sign index-2 plus-minus-btn row18" id="index-btn2" value="+" readonly>
+            <input type="text" placeholder="00" class="input-style right-align altObsD altObs-2d row19 hidden" maxlength="2" readonly>
+            <span class="altObs-2d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style altObsM altObs-2m row19 hidden" maxlength="4" readonly>
+            <span class="altObs-2m minute-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style dip dip-2 row20 hover1" maxlength="4">
+            <span class="dip-2 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00" class="input-style right-align altAprD altApr-2d row21 hidden" maxlength="2" readonly>
+            <span class="altApr-2d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style altAprM altApr-2m row21 hidden" maxlength="4" readonly>
+            <span class="altApr-2m minute-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style tc tc-2 row22 hover1" maxlength="4">
+            <span class="tc-2 minute-sign minute-shift-left"></span>
+            <input type="text" class="tc-sign tc-2 plus-minus-btn row22" id="tc-btn2" value="+" readonly>
+            <input type="text" placeholder="00.0" class="input-style ac ac-2 row23 hover1" maxlength="4">
+            <span class="ac-2 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00.0" class="input-style ulc ulc-2 row24 hover1" maxlength="4">
+            <span class="ulc-2 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00.0" class="input-style arc arc-2 row25 hover1" maxlength="4">
+            <span class="arc-2 minute-sign minute-shift-left"></span>
+            <input type="text" class="arc-sign arc-2 plus-minus-btn row25" id="arc-btn2" value="+" readonly>
+            <input type="text" placeholder="00" class="input-style right-align altTrueD altTrue-2d row26 hidden" maxlength="2" readonly>
+            <span class="altTrue-2d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style altTrueM altTrue-2m row26 hidden" maxlength="4" readonly>
+            <span class="altTrue-2m minute-sign hidden"></span>
+            <input type="text" placeholder="00" class="input-style right-align altCCopyD altCCopy-2d row27 hidden" maxlength="2" readonly>
+            <span class="altCCopy-2d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style altCCopyM altCCopy-2m row27 hidden" maxlength="4" readonly>
+            <span class="altCCopy-2m minute-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style int int-2 row28 hidden" maxlength="6" readonly>
+            <span class="int-2 minute-sign minute-shift-left hidden"></span>
+            <!-- Button to attract attention -->
+            <button class="btn btn-hover btn12">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <!-- Data of Column 2 -->
+            <input type="text" placeholder="00" class="input-style right-align altCopyD altCopy-3d row17" maxlength="2" readonly>
+            <span class="altCopy-3d degree-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style altCopyM altCopy-3m row17" maxlength="4" readonly>
+            <span class="altCopy-3m minute-sign"></span>
+            <input type="text" placeholder="00.0" class="input-style index index-3 row18 hover1" maxlength="4">
+            <span class="index-3 minute-sign minute-shift-left"></span>
+            <input type="text" class="index-sign index-3 plus-minus-btn row18" id="index-btn3" value="+" readonly>
+            <input type="text" placeholder="00" class="input-style right-align altObsD altObs-3d row19 hidden" maxlength="2" readonly>
+            <span class="altObs-3d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style altObsM altObs-3m row19 hidden" maxlength="4" readonly>
+            <span class="altObs-3m minute-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style dip dip-3 row20 hover1" maxlength="4">
+            <span class="dip-3 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00" class="input-style right-align altAprD altApr-3d row21 hidden" maxlength="2" readonly>
+            <span class="altApr-3d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style altAprM altApr-3m row21 hidden" maxlength="4" readonly>
+            <span class="altApr-3m minute-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style tc tc-3 row22 hover1" maxlength="4">
+            <span class="tc-3 minute-sign minute-shift-left"></span>
+            <input type="text" class="tc-sign tc-3 plus-minus-btn row22" id="tc-btn3" value="+" readonly>
+            <input type="text" placeholder="00.0" class="input-style ac ac-3 row23 hover1" maxlength="4">
+            <span class="ac-3 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00.0" class="input-style ulc ulc-3 row24 hover1" maxlength="4">
+            <span class="ulc-3 minute-sign minute-shift-left"></span>
+            <input type="text" placeholder="00.0" class="input-style arc arc-3 row25 hover1" maxlength="4">
+            <span class="arc-3 minute-sign minute-shift-left"></span>
+            <input type="text" class="arc-sign arc-3 plus-minus-btn row25" id="arc-btn3" value="+" readonly>
+            <input type="text" placeholder="00" class="input-style right-align altTrueD altTrue-3d row26 hidden" maxlength="2" readonly>
+            <span class="altTrue-3d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style altTrueM altTrue-3m row26 hidden" maxlength="4" readonly>
+            <span class="altTrue-3m minute-sign hidden"></span>
+            <input type="text" placeholder="00" class="input-style right-align altCCopyD altCCopy-3d row27 hidden" maxlength="2" readonly>
+            <span class="altCCopy-3d degree-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style altCCopyM altCCopy-3m row27 hidden" maxlength="4" readonly>
+            <span class="altCCopy-3m minute-sign hidden"></span>
+            <input type="text" placeholder="00.0" class="input-style int int-3 row28 hidden" maxlength="6" readonly>
+            <span class="int-3 minute-sign minute-shift-left hidden"></span>
+        </section>
+<!-- === Get the Intercept Value Button ================================= -->
+        <button class="intercept-calculation__button">Click the last button and get your<br> so desired intercept values!</button>
+        <script src="jquery\node_modules\jquery\dist\jquery.js"></script>
+    </body>
+</html>
