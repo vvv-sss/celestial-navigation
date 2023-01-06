@@ -570,7 +570,7 @@ header {
     position: relative;
     width: 62.5rem;
     height: 100vh;
-    margin: 0 auto;
+    margin: 3rem auto;
 }
 
 .heading-container {
@@ -1438,10 +1438,7 @@ header button:hover {
 /* =================================================================== */
 /* #region */
 
-@media only screen and (max-width: 550px) {
-    :root {
-        font-size: 8px;
-    }
+@media only screen and (orientation: portrait) {
 
     #coming-soon {
         display: block;
@@ -1450,23 +1447,18 @@ header button:hover {
         left: 0;
         width: 100%;
         height: 100%;
-        padding: 5rem;
+        padding: 3rem;
         background-image: url("./images/background.jpg");
         background-attachment: fixed;
         background-size: 100%;
         color: var(--color-primary-100);
-        font-size: 3rem;
+        font-size: 2rem;
+        line-height: 1.5;
         z-index: 999;
-    }
-
-    #coming-soon-2 {
-        display: block;
-        margin-top: 2rem;
-        color: var(--color-accent-100);
     }
 }
 
-@media only screen and (min-width: 550px) and (max-width: 650px) {
+@media only screen and (max-width: 650px) {
     :root {
         font-size: 8px;
     }
