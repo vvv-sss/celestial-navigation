@@ -17,6 +17,8 @@ const cssObjectForFormatMessage = {
     "top": "-2.5rem",
     "left": "-7rem",
     "background-color": "hsl(0, 0%, 0%)",
+    "width": "-webkit-fit-content",
+    "width": "-moz-fit-content",
     "width": "fit-content",
     "padding": "0.5rem",
     "color": "hsl(25, 100%, 81%)",
@@ -312,6 +314,7 @@ $(".initial-data, .initial-data input").on("mouseover", () => {
     if (accessResultForInitialData === true) {
         $(".initial-data__update-info-btn").text("Press this button to proceed!");
         $(".initial-data__update-info-btn").css({
+            "-ms-flex-preferred-size": "30%",
             "flex-basis": "30%",
             "height": "11rem",
             "font-family": "inherit",
@@ -322,6 +325,8 @@ $(".initial-data, .initial-data input").on("mouseover", () => {
             "border": "4px solid var(--color-accent-100)",
             "border-radius": "1.5rem",
             "cursor": "pointer",
+            "-webkit-transition": "all .5s",
+            "-o-transition": "all .5s",
             "transition": "all .5s"
         });
     };
@@ -355,6 +360,7 @@ $(".lha-calculation, .dec-calculation, .lha-calculation input, .dec-calculation 
     if (accessResultForLhaAndDecData === true) {
         $(".lha-dec__update-info-btn").html("This is your<br> second button<br> to press!");
         $(".lha-dec__update-info-btn").css({
+            "-ms-flex-preferred-size": "30%",
             "flex-basis": "30%",
             "height": "18rem",
             "font-family": "inherit",
@@ -365,6 +371,8 @@ $(".lha-calculation, .dec-calculation, .lha-calculation input, .dec-calculation 
             "border": "4px solid var(--color-accent-100)",
             "border-radius": "2rem",
             "cursor": "pointer",
+            "-webkit-transition": "all .5s",
+            "-o-transition": "all .5s",
             "transition": "all .5s"
         });
     };
@@ -398,8 +406,14 @@ $(".intercept-calculation, .intercept-calculation input").on("mouseover", () => 
             "width": "62.5rem",
             "height": "6rem",
             "margin": "1rem auto",
+            "display": "-webkit-box",
+            "display": "-ms-flexbox",
             "display": "flex",
+            "-webkit-box-align": "center",
+            "-ms-flex-align": "center",
             "align-items": "center",
+            "-webkit-box-pack": "center",
+            "-ms-flex-pack": "center",
             "justify-content": "center",
             "background": "transparent",
             "color": "var(--color-accent-100)",
@@ -409,6 +423,8 @@ $(".intercept-calculation, .intercept-calculation input").on("mouseover", () => 
             "border": "4px solid var(--color-accent-100)",
             "border-radius": "1.5rem",
             "cursor": "pointer",
+            "-webkit-transition": "all 0.3s linear",
+            "-o-transition": "all 0.3s linear",
             "transition": "all 0.3s linear"
         });
     };
@@ -450,7 +466,11 @@ $("document").ready(function() {
             "width": "fit-content",
             "padding": "0.2rem 0.5rem",
             "border-radius": "4px",
+            "display": "-webkit-box",
+            "display": "-ms-flexbox",
             "display": "flex",
+            "-webkit-box-align": "center",
+            "-ms-flex-align": "center",
             "align-items": "center"
         });
         heading.children("img").css("display", "none");
@@ -640,11 +660,16 @@ $("header button").on("click", () => {
         $("body").css("overflow", "auto");
 
         $('html,body').animate({scrollTop: document.body.scrollHeight}, 1500);
-        $(".initial-data").css("display", "grid");
-        $(".data-container, .initial-data__update-info-section").css("display", "flex");
+        $(".initial-data").css({"display": "-ms-grid", "display": "grid"});
+        $(".data-container, .initial-data__update-info-section").css({
+            "display": "-webkit-box",
+            "display": "-ms-flexbox",
+            "display": "flex"
+        });
         $(".data-container, .initial-data, .initial-data__update-info-section").wrapAll("<div class='initial-data-container'>");
         $(".initial-data-container").css({
             "height": "100vh",
+            "display": "-ms-grid",
             "display": "grid",
             "place-content": "center"
         });
@@ -665,11 +690,16 @@ $(document).ready(function(){
         $("body").css("overflow", "auto");
 
         $('html,body').animate({scrollTop: document.body.scrollHeight}, 1000);
-        $(".initial-data").css("display", "grid");
-        $(".data-container, .initial-data__update-info-section").css("display", "flex");
+        $(".initial-data").css({"display": "-ms-grid", "display": "grid"});
+        $(".data-container, .initial-data__update-info-section").css({
+            "display": "-webkit-box",
+            "display": "-ms-flexbox",
+            "display": "flex"
+        });
         $(".data-container, .initial-data, .initial-data__update-info-section").wrapAll("<div class='initial-data-container'>");
         $(".initial-data-container").css({
             "height": "100vh",
+            "display": "-ms-grid",
             "display": "grid",
             "place-content": "center"
         });
@@ -679,8 +709,12 @@ $(document).ready(function(){
     if (sessionStorage.goToFormAnimation === "true" && sessionStorage.goToLhaSectionAnimation === "true") {
         $("body").css("overflow", "auto");
 
-        $(".initial-data").css("display", "grid");
-        $(".data-container, .initial-data__update-info-section").css("display", "flex");
+        $(".initial-data").css({"display": "-ms-grid", "display": "grid"});
+        $(".data-container, .initial-data__update-info-section").css({
+            "display": "-webkit-box",
+            "display": "-ms-flexbox",
+            "display": "flex"
+        });
     };
 
 });
@@ -696,11 +730,26 @@ $(".initial-data__update-info-btn").on("click", () => {
         
         $('html,body').animate({scrollTop: document.body.scrollHeight}, 1000);
 
-        $(".lha-calculation").css("animation", "opacity 1s ease-in 0.5s backwards, scale 1s ease 0.5s backwards");
-        $(".dec-calculation").css("animation", "opacity 1s ease-in 0.5s backwards, scale 1s ease 0.5s backwards");
-        $(".lha-dec__update-info-message").css("animation", "opacity 1s ease 0.5s backwards, scale 1s ease 0.5s backwards");
-        $(".lha-dec__update-info-middle").css("animation", "opacity 1s ease 0.5s backwards, scale 1s ease 0.5s backwards");
-        $(".lha-dec__update-info-btn").css("animation", "opacity 1s ease 0.5s backwards, scale 1s ease 0.5s backwards");
+        $(".lha-calculation").css({
+            "-webkit-animation": "opacity 1s ease-in 0.5s backwards, scale 1s ease 0.5s backwards",
+            "animation": "opacity 1s ease-in 0.5s backwards, scale 1s ease 0.5s backwards"
+        });
+        $(".dec-calculation").css({
+            "-webkit-animation": "opacity 1s ease-in 0.5s backwards, scale 1s ease 0.5s backwards",
+            "animation": "opacity 1s ease-in 0.5s backwards, scale 1s ease 0.5s backwards"
+        });
+        $(".lha-dec__update-info-message").css({
+            "-webkit-animation": "opacity 1s ease 0.5s backwards, scale 1s ease 0.5s backwards",
+            "animation": "opacity 1s ease 0.5s backwards, scale 1s ease 0.5s backwards"
+        });
+        $(".lha-dec__update-info-middle").css({
+            "-webkit-animation": "opacity 1s ease 0.5s backwards, scale 1s ease 0.5s backwards",
+            "animation": "opacity 1s ease 0.5s backwards, scale 1s ease 0.5s backwards"
+        });
+        $(".lha-dec__update-info-btn").css({
+            "-webkit-animation": "opacity 1s ease 0.5s backwards, scale 1s ease 0.5s backwards",
+            "animation": "opacity 1s ease 0.5s backwards, scale 1s ease 0.5s backwards"
+        });
 
         $(".lha-calculation").removeClass("hidden-but-in-flow");
         $(".dec-calculation").removeClass("hidden-but-in-flow");
@@ -743,17 +792,28 @@ $(".lha-dec__update-info-btn").on("click", () => {
         $(".dec-calculation").children().filter("input.hidden, h3.hidden, span.hidden").css("display", "block");
 
         $(".azimuth-calculation").css({
+            "-webkit-animation": "slide-in-left-azimuth 0.5s ease-out 0.8s backwards",
             "animation": "slide-in-left-azimuth 0.5s ease-out 0.8s backwards",
+            "-webkit-transition": "all 0.5s",
+            "-o-transition": "all 0.5s",
             "transition": "all 0.5s"
         });
         $(".intercept-calculation").css({
             "grid-template-rows": "2.5rem 2.5rem 0rem 2.5rem 0rem repeat(4, 2.5rem) ", 
+            "-webkit-animation": "slide-in-right-intercept 0.5s ease-out 0.8s backwards",
             "animation": "slide-in-right-intercept 0.5s ease-out 0.8s backwards",
+            "-webkit-transition": "all 0.5s",
+            "-o-transition": "all 0.5s",
             "transition": "all 0.5s"
         });
         $(".intercept-calculation__button").css({
+            "display": "-webkit-box",
+            "display": "-ms-flexbox",
             "display": "flex", 
+            "-webkit-animation": "slide-in-bottom-intercept-btn 0.5s linear 0.8s backwards",
             "animation": "slide-in-bottom-intercept-btn 0.5s linear 0.8s backwards",
+            "-webkit-transition": "all 0.5s",
+            "-o-transition": "all 0.5s",
             "transition": "all 0.5s"
         });
 

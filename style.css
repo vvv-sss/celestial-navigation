@@ -59,6 +59,7 @@ table {
 
     --color-neutral-100: hsl(0, 0%, 0%);
 }
+
 /* #endregion */
 
 /* === Utility Classes =============================================== */
@@ -66,9 +67,11 @@ table {
 /* #region */
 
 .grid {
+    display: -ms-grid;
     display: grid;
     grid-template-columns: 23% repeat(12, 1fr);
     grid-template-rows: repeat(6, 2.5rem);
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 62.5rem;
     padding: 1.5rem;
@@ -76,8 +79,11 @@ table {
     margin: 1rem auto;
     border: 1px solid var(--color-primary-100);
     border-radius: 2rem;
+    -webkit-box-shadow: inset 14.38rem 0rem var(--color-neutral-100);
     box-shadow: inset 14.38rem 0rem var(--color-neutral-100);
     background-color: var(--color-primary-100);
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -106,6 +112,7 @@ table {
 /* === Button to attract attention ===================================== */
 
 .btn {
+    -ms-grid-column-align: center;
     justify-self: center;
     width: 4rem;
     height: 4rem;
@@ -117,17 +124,42 @@ table {
 
 .material-symbols-outlined {
     color: var(--color-primary-100);
+    -webkit-transform: scale(1.4);
+    -ms-transform: scale(1.4);
     transform: scale(1.4);
 }
 
 .btn-hover:hover .material-symbols-outlined {
+    -webkit-animation: arrowMove1 1s ease, arrowMove2 1s ease-out infinite;
     animation: arrowMove1 1s ease, arrowMove2 1s ease-out infinite;
+}
+
+@-webkit-keyframes arrowMove1 {
+    0% {
+        position: relative;
+        left: 0rem;
+    }
+    100% {
+        position: relative;
+        left: 2.5rem;
+    }
 }
 
 @keyframes arrowMove1 {
     0% {
         position: relative;
         left: 0rem;
+    }
+    100% {
+        position: relative;
+        left: 2.5rem;
+    }
+}
+
+@-webkit-keyframes arrowMove2 {
+    0% {
+        position: relative;
+        left: -2.5rem;
     }
     100% {
         position: relative;
@@ -159,6 +191,8 @@ table {
     font-size: inherit;
     text-align: center;
     cursor: pointer !important;
+    -webkit-transition: 0.1s;
+    -o-transition: 0.1s;
     transition: 0.1s;
 }
 
@@ -178,6 +212,8 @@ table {
     font-size: inherit;
     text-align: center;
     cursor: pointer !important;
+    -webkit-transition: 0.1s;
+    -o-transition: 0.1s;
     transition: 0.1s;
 }
 
@@ -187,8 +223,14 @@ table {
 }
 
 .plus-minus-btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     position: relative;
     left: -2.2rem;
@@ -200,6 +242,8 @@ table {
     background-color: var(--color-primary-100);
     text-align: center;
     cursor: pointer !important;
+    -webkit-transition: 0.1s;
+    -o-transition: 0.1s;
     transition: 0.1s;
 }
 
@@ -274,16 +318,30 @@ table {
 }
 
 .view-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
     justify-content: start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     position: fixed;
     top: 50%;
     left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 50rem;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
     height: fit-content;
     padding: 3rem 5rem 5rem;
     border: 1px solid var(--color-primary-100);
@@ -296,9 +354,16 @@ table {
 }
 
 .view-info button {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 3.13rem;
     height: 3.13rem;
@@ -309,10 +374,13 @@ table {
     font-size: 4rem;
     background-color: var(--color-primary-100);
     cursor: pointer;
+    -webkit-transition: 0.1s;
+    -o-transition: 0.1s;
     transition: 0.1s;
 }
 
 .view-info button img:hover {
+    -webkit-filter: brightness(0) saturate(100%) invert(88%) sepia(36%) saturate(527%) hue-rotate(13deg) brightness(105%) contrast(103%);
     filter: brightness(0) saturate(100%) invert(88%) sepia(36%) saturate(527%) hue-rotate(13deg) brightness(105%) contrast(103%);
 }
 
@@ -329,6 +397,17 @@ table {
 .slide-in-right-view-info {
 	-webkit-animation: slide-in-right-view-info 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	animation: slide-in-right-view-info 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes slide-in-right-view-info {
+    0% {
+        left: 80%;
+        opacity: 0;
+    }
+    100% {
+        left: 50%;
+        opacity: 1;
+    }
 }
 
 @keyframes slide-in-right-view-info {
@@ -383,12 +462,72 @@ body p {
     cursor: default;
 }
 
+input[placeholder]::-webkit-input-placeholder {
+    color: var(--color-neutral-100);
+    opacity: 1;
+}
+
+input[placeholder]::-moz-placeholder {
+    color: var(--color-neutral-100);
+    opacity: 1;
+}
+
+input[placeholder]:-ms-input-placeholder {
+    color: var(--color-neutral-100);
+    opacity: 1;
+}
+
+input[placeholder]::-ms-input-placeholder {
+    color: var(--color-neutral-100);
+    opacity: 1;
+}
+
 input[placeholder]::placeholder {
     color: var(--color-neutral-100);
     opacity: 1;
 }
 
+input[placeholder].celestial-body::-webkit-input-placeholder {
+    color: var(--color-primary-100);
+    opacity: 0.6;
+}
+
+input[placeholder].celestial-body::-moz-placeholder {
+    color: var(--color-primary-100);
+    opacity: 0.6;
+}
+
+input[placeholder].celestial-body:-ms-input-placeholder {
+    color: var(--color-primary-100);
+    opacity: 0.6;
+}
+
+input[placeholder].celestial-body::-ms-input-placeholder {
+    color: var(--color-primary-100);
+    opacity: 0.6;
+}
+
 input[placeholder].celestial-body::placeholder {
+    color: var(--color-primary-100);
+    opacity: 0.6;
+}
+
+.data-container input::-webkit-input-placeholder {
+    color: var(--color-primary-100);
+    opacity: 0.6;
+}
+
+.data-container input::-moz-placeholder {
+    color: var(--color-primary-100);
+    opacity: 0.6;
+}
+
+.data-container input:-ms-input-placeholder {
+    color: var(--color-primary-100);
+    opacity: 0.6;
+}
+
+.data-container input::-ms-input-placeholder {
     color: var(--color-primary-100);
     opacity: 0.6;
 }
@@ -402,6 +541,7 @@ h3 img {
     width: 1.2rem;
     height: 1.2rem;
     margin-left: 0.2rem;
+    -webkit-filter: brightness(0) saturate(100%) invert(88%) sepia(36%) saturate(527%) hue-rotate(13deg) brightness(105%) contrast(103%);
     filter: brightness(0) saturate(100%) invert(88%) sepia(36%) saturate(527%) hue-rotate(13deg) brightness(105%) contrast(103%);
 }
 
@@ -414,9 +554,18 @@ h3 img {
 /* #region */
 
 header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
     align-items: start;
     position: relative;
     width: 62.5rem;
@@ -426,6 +575,7 @@ header {
 
 .heading-container {
     position: relative;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 50%;
     margin-bottom: 6rem;
@@ -445,6 +595,7 @@ h1 {
     right: 44%;
     width: 5rem;
     height: 5rem;
+    -webkit-filter: brightness(0) saturate(100%) invert(77%) sepia(29%) saturate(584%) hue-rotate(330deg) brightness(104%) contrast(101%);
     filter: brightness(0) saturate(100%) invert(77%) sepia(29%) saturate(584%) hue-rotate(330deg) brightness(104%) contrast(101%);
 }
 
@@ -461,6 +612,8 @@ h1 {
 .header__reset span {
     color: var(--color-accent-200);
     cursor: pointer;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
     transition: all 0.2s;
 }
 
@@ -470,6 +623,7 @@ h1 {
 }
 
 header button {
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 50%;
     height: 3rem;
@@ -482,6 +636,8 @@ header button {
     font-weight: bold;
     letter-spacing: 0.2rem;
     cursor: pointer;
+    -webkit-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
     transition: all 0.1s linear;
 }
 
@@ -495,7 +651,11 @@ header button:hover {
 /* #region */
 
 .data-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-column-gap: 1rem;
+    -moz-column-gap: 1rem;
     column-gap: 1rem;
     width: 62.5rem;
     margin: 1rem auto;
@@ -505,11 +665,21 @@ header button:hover {
 .speed-box,
 .course-box,
 .weather-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
     justify-content: start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     row-gap: 0.75rem;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 25%;
     height: 10.94rem;
@@ -526,6 +696,7 @@ header button:hover {
 }
 
 .date-box {
+    -ms-flex-negative: 0;
     flex-shrink: 0;
     width: 14.38rem;
     color: var(--color-neutral-100);
@@ -596,46 +767,46 @@ header button:hover {
 .name-2 {grid-area: name-2;}
 .name-3 {grid-area: name-3;}
 
-.time-1h {grid-area: time-1h; justify-self: end;}
-.time-1m {grid-area: time-1m; justify-self: center;}
+.time-1h {grid-area: time-1h; -ms-grid-column-align: end; justify-self: end;}
+.time-1m {grid-area: time-1m; -ms-grid-column-align: center; justify-self: center;}
 .time-1s {grid-area: time-1s; position: relative;}
-.time-2h {grid-area: time-2h; justify-self: end;}
-.time-2m {grid-area: time-2m; justify-self: center;}
+.time-2h {grid-area: time-2h; -ms-grid-column-align: end; justify-self: end;}
+.time-2m {grid-area: time-2m; -ms-grid-column-align: center; justify-self: center;}
 .time-2s {grid-area: time-2s; position: relative;}
-.time-3h {grid-area: time-3h; justify-self: end;}
-.time-3m {grid-area: time-3m; justify-self: center;}
+.time-3h {grid-area: time-3h; -ms-grid-column-align: end; justify-self: end;}
+.time-3m {grid-area: time-3m; -ms-grid-column-align: center; justify-self: center;}
 .time-3s {grid-area: time-3s; position: relative;}
 
-.lat-1d {grid-area: lat-1d; justify-self: end;}
-.lat-1m {grid-area: lat-1m; justify-self: center;}
+.lat-1d {grid-area: lat-1d; -ms-grid-column-align: end; justify-self: end;}
+.lat-1m {grid-area: lat-1m; -ms-grid-column-align: center; justify-self: center;}
 .lat-1s {grid-area: lat-1s;}
-.lat-2d {grid-area: lat-2d; justify-self: end;}
-.lat-2m {grid-area: lat-2m; justify-self: center;}
+.lat-2d {grid-area: lat-2d; -ms-grid-column-align: end; justify-self: end;}
+.lat-2m {grid-area: lat-2m; -ms-grid-column-align: center; justify-self: center;}
 .lat-2s {grid-area: lat-2s;}
-.lat-3d {grid-area: lat-3d; justify-self: end;}
-.lat-3m {grid-area: lat-3m; justify-self: center;}
+.lat-3d {grid-area: lat-3d; -ms-grid-column-align: end; justify-self: end;}
+.lat-3m {grid-area: lat-3m; -ms-grid-column-align: center; justify-self: center;}
 .lat-3s {grid-area: lat-3s;}
 
-.long-1d {grid-area: long-1d; justify-self: end;}
-.long-1m {grid-area: long-1m; justify-self: center;}
+.long-1d {grid-area: long-1d; -ms-grid-column-align: end; justify-self: end;}
+.long-1m {grid-area: long-1m; -ms-grid-column-align: center; justify-self: center;}
 .long-1s {grid-area: long-1s;}
-.long-2d {grid-area: long-2d; justify-self: end;}
-.long-2m {grid-area: long-2m; justify-self: center;}
+.long-2d {grid-area: long-2d; -ms-grid-column-align: end; justify-self: end;}
+.long-2m {grid-area: long-2m; -ms-grid-column-align: center; justify-self: center;}
 .long-2s {grid-area: long-2s;}
-.long-3d {grid-area: long-3d; justify-self: end;}
-.long-3m {grid-area: long-3m; justify-self: center;}
+.long-3d {grid-area: long-3d; -ms-grid-column-align: end; justify-self: end;}
+.long-3m {grid-area: long-3m; -ms-grid-column-align: center; justify-self: center;}
 .long-3s {grid-area: long-3s;}
 
-.alt-1d {grid-area: alt-1d; justify-self: end;}
-.alt-1m {grid-area: alt-1m; justify-self: center;}
-.alt-2d {grid-area: alt-2d; justify-self: end;}
-.alt-2m {grid-area: alt-2m; justify-self: center;}
-.alt-3d {grid-area: alt-3d; justify-self: end;}
-.alt-3m {grid-area: alt-3m; justify-self: center;}
+.alt-1d {grid-area: alt-1d; -ms-grid-column-align: end; justify-self: end;}
+.alt-1m {grid-area: alt-1m; -ms-grid-column-align: center; justify-self: center;}
+.alt-2d {grid-area: alt-2d; -ms-grid-column-align: end; justify-self: end;}
+.alt-2m {grid-area: alt-2m; -ms-grid-column-align: center; justify-self: center;}
+.alt-3d {grid-area: alt-3d; -ms-grid-column-align: end; justify-self: end;}
+.alt-3m {grid-area: alt-3m; -ms-grid-column-align: center; justify-self: center;}
 
-.hoe-1 {grid-area: hoe-1; justify-self: center; position: relative;}
-.hoe-2 {grid-area: hoe-2; justify-self: center; position: relative;}
-.hoe-3 {grid-area: hoe-3; justify-self: center; position: relative;}
+.hoe-1 {grid-area: hoe-1; -ms-grid-column-align: center; justify-self: center; position: relative;}
+.hoe-2 {grid-area: hoe-2; -ms-grid-column-align: center; justify-self: center; position: relative;}
+.hoe-3 {grid-area: hoe-3; -ms-grid-column-align: center; justify-self: center; position: relative;}
 
 .btn1 {grid-area: btn1;}
 .btn2 {grid-area: btn2;}
@@ -644,6 +815,7 @@ header button:hover {
 .name-1,
 .name-2,
 .name-3 {
+    -ms-grid-column-align: center;
     justify-self: center;
     width: 8rem;
     padding: 0.5rem;
@@ -657,13 +829,37 @@ header button:hover {
     text-align: center;
 }
 
+.celestial-body ::-webkit-input-placeholder {
+    color: var(--color-primary-100);
+    opacity: 0.6;
+}
+
+.celestial-body ::-moz-placeholder {
+    color: var(--color-primary-100);
+    opacity: 0.6;
+}
+
+.celestial-body :-ms-input-placeholder {
+    color: var(--color-primary-100);
+    opacity: 0.6;
+}
+
+.celestial-body ::-ms-input-placeholder {
+    color: var(--color-primary-100);
+    opacity: 0.6;
+}
+
 .celestial-body ::placeholder {
     color: var(--color-primary-100);
     opacity: 0.6;
 }
 
 .initial-data__update-info-section {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-column-gap: 1rem;
+    -moz-column-gap: 1rem;
     column-gap: 1rem;
     width: 62.5rem;
     margin: 1rem auto;
@@ -671,7 +867,9 @@ header button:hover {
 }
 
 .initial-data__update-info-message {
+    -ms-flex-preferred-size: 70%;
     flex-basis: 70%;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     padding: 1rem;
     height: 11rem;
@@ -692,6 +890,7 @@ header button:hover {
 }
 
 .initial-data__update-info-btn {
+    -ms-flex-preferred-size: 30%;
     flex-basis: 30%;
     height: 11rem;
     border: 4px solid var(--color-accent-100);
@@ -701,10 +900,13 @@ header button:hover {
     font-family: inherit;
     font-size: 1.5rem;
     cursor: pointer;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
     transition: all .5s;
 }
 
 .initial-data__update-info-btn:hover {
+    -webkit-box-shadow: inset 30rem 0rem var(--color-accent-100);
     box-shadow: inset 30rem 0rem var(--color-accent-100);
     color: var(--color-neutral-100) !important;
     font-weight: bold;
@@ -735,54 +937,54 @@ header button:hover {
 .heading-12 {grid-area: heading-12; color: var(--color-primary-100);}
 .heading-13 {grid-area: heading-13; color: var(--color-primary-100);}
 
-.gha-1d {grid-area: gha-1d; justify-self: end; z-index: 1;}
-.gha-1m {grid-area: gha-1m; justify-self: center; z-index: 1;}
-.gha-2d {grid-area: gha-2d; justify-self: end;}
-.gha-2m {grid-area: gha-2m; justify-self: center;}
-.gha-3d {grid-area: gha-3d; justify-self: end;}
-.gha-3m {grid-area: gha-3m; justify-self: center;}
+.gha-1d {grid-area: gha-1d; -ms-grid-column-align: end; justify-self: end; z-index: 1;}
+.gha-1m {grid-area: gha-1m; -ms-grid-column-align: center; justify-self: center; z-index: 1;}
+.gha-2d {grid-area: gha-2d; -ms-grid-column-align: end; justify-self: end;}
+.gha-2m {grid-area: gha-2m; -ms-grid-column-align: center; justify-self: center;}
+.gha-3d {grid-area: gha-3d; -ms-grid-column-align: end; justify-self: end;}
+.gha-3m {grid-area: gha-3m; -ms-grid-column-align: center; justify-self: center;}
 
-.sha-1d {grid-area: sha-1d; justify-self: end; z-index: 1;}
-.sha-1m {grid-area: sha-1m; justify-self: center; z-index: 1;}
-.sha-2d {grid-area: sha-2d; justify-self: end;}
-.sha-2m {grid-area: sha-2m; justify-self: center;}
-.sha-3d {grid-area: sha-3d; justify-self: end;}
-.sha-3m {grid-area: sha-3m; justify-self: center;}
+.sha-1d {grid-area: sha-1d; -ms-grid-column-align: end; justify-self: end; z-index: 1;}
+.sha-1m {grid-area: sha-1m; -ms-grid-column-align: center; justify-self: center; z-index: 1;}
+.sha-2d {grid-area: sha-2d; -ms-grid-column-align: end; justify-self: end;}
+.sha-2m {grid-area: sha-2m; -ms-grid-column-align: center; justify-self: center;}
+.sha-3d {grid-area: sha-3d; -ms-grid-column-align: end; justify-self: end;}
+.sha-3m {grid-area: sha-3m; -ms-grid-column-align: center; justify-self: center;}
 
-.cv-1 {grid-area: cv-1; justify-self: center; z-index: 1;}
-.cv-2 {grid-area: cv-2; justify-self: center;}
-.cv-3 {grid-area: cv-3; justify-self: center;}
+.cv-1 {grid-area: cv-1; -ms-grid-column-align: center; justify-self: center; z-index: 1;}
+.cv-2 {grid-area: cv-2; -ms-grid-column-align: center; justify-self: center;}
+.cv-3 {grid-area: cv-3; -ms-grid-column-align: center; justify-self: center;}
 
-.inc-1d {grid-area: inc-1d; justify-self: end; z-index: 1;}
-.inc-1m {grid-area: inc-1m; justify-self: center; z-index: 1;}
-.inc-2d {grid-area: inc-2d; justify-self: end;}
-.inc-2m {grid-area: inc-2m; justify-self: center;}
-.inc-3d {grid-area: inc-3d; justify-self: end;}
-.inc-3m {grid-area: inc-3m; justify-self: center;}
+.inc-1d {grid-area: inc-1d; -ms-grid-column-align: end; justify-self: end; z-index: 1;}
+.inc-1m {grid-area: inc-1m; -ms-grid-column-align: center; justify-self: center; z-index: 1;}
+.inc-2d {grid-area: inc-2d; -ms-grid-column-align: end; justify-self: end;}
+.inc-2m {grid-area: inc-2m; -ms-grid-column-align: center; justify-self: center;}
+.inc-3d {grid-area: inc-3d; -ms-grid-column-align: end; justify-self: end;}
+.inc-3m {grid-area: inc-3m; -ms-grid-column-align: center; justify-self: center;}
 
-.ghaC-1d {grid-area: ghaC-1d; justify-self: end; font-weight: bold;}
-.ghaC-1m {grid-area: ghaC-1m; justify-self: center; font-weight: bold;}
-.ghaC-2d {grid-area: ghaC-2d; justify-self: end; font-weight: bold;}
-.ghaC-2m {grid-area: ghaC-2m; justify-self: center; font-weight: bold;}
-.ghaC-3d {grid-area: ghaC-3d; justify-self: end; font-weight: bold;}
-.ghaC-3m {grid-area: ghaC-3m; justify-self: center; font-weight: bold;}
+.ghaC-1d {grid-area: ghaC-1d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.ghaC-1m {grid-area: ghaC-1m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.ghaC-2d {grid-area: ghaC-2d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.ghaC-2m {grid-area: ghaC-2m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.ghaC-3d {grid-area: ghaC-3d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.ghaC-3m {grid-area: ghaC-3m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 
-.longC-1d {grid-area: longC-1d; justify-self: end; font-weight: bold;}
-.longC-1m {grid-area: longC-1m; justify-self: center; font-weight: bold;}
+.longC-1d {grid-area: longC-1d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.longC-1m {grid-area: longC-1m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 .longC-1s {grid-area: longC-1s; font-weight: bold; font-weight: bold;}
-.longC-2d {grid-area: longC-2d; justify-self: end; font-weight: bold;}
-.longC-2m {grid-area: longC-2m; justify-self: center; font-weight: bold;}
+.longC-2d {grid-area: longC-2d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.longC-2m {grid-area: longC-2m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 .longC-2s {grid-area: longC-2s; font-weight: bold; font-weight: bold;}
-.longC-3d {grid-area: longC-3d; justify-self: end; font-weight: bold;}
-.longC-3m {grid-area: longC-3m; justify-self: center; font-weight: bold;}
+.longC-3d {grid-area: longC-3d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.longC-3m {grid-area: longC-3m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 .longC-3s {grid-area: longC-3s; font-weight: bold; font-weight: bold;}
 
-.lha-1d {grid-area: lha-1d; justify-self: end; font-weight: bold;}
-.lha-1m {grid-area: lha-1m; justify-self: center; font-weight: bold;}
-.lha-2d {grid-area: lha-2d; justify-self: end; font-weight: bold;}
-.lha-2m {grid-area: lha-2m; justify-self: center; font-weight: bold;}
-.lha-3d {grid-area: lha-3d; justify-self: end; font-weight: bold;}
-.lha-3m {grid-area: lha-3m; justify-self: center; font-weight: bold;}
+.lha-1d {grid-area: lha-1d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.lha-1m {grid-area: lha-1m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.lha-2d {grid-area: lha-2d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.lha-2m {grid-area: lha-2m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.lha-3d {grid-area: lha-3d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.lha-3m {grid-area: lha-3m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 
 .btn4 {grid-area: btn4;}
 .btn5 {grid-area: btn5;}
@@ -805,28 +1007,28 @@ header button:hover {
 .heading-15 {grid-area: heading-15; color: var(--color-primary-100);}
 .heading-16 {grid-area: heading-16; color: var(--color-primary-100);}
 
-.dec-1d {grid-area: dec-1d; justify-self: end;}
-.dec-1m {grid-area: dec-1m; justify-self: center;}
+.dec-1d {grid-area: dec-1d; -ms-grid-column-align: end; justify-self: end;}
+.dec-1m {grid-area: dec-1m; -ms-grid-column-align: center; justify-self: center;}
 .dec-1s {grid-area: dec-1s;}
-.dec-2d {grid-area: dec-2d; justify-self: end;}
-.dec-2m {grid-area: dec-2m; justify-self: center;}
+.dec-2d {grid-area: dec-2d; -ms-grid-column-align: end; justify-self: end;}
+.dec-2m {grid-area: dec-2m; -ms-grid-column-align: center; justify-self: center;}
 .dec-2s {grid-area: dec-2s;}
-.dec-3d {grid-area: dec-3d; justify-self: end;}
-.dec-3m {grid-area: dec-3m; justify-self: center;}
+.dec-3d {grid-area: dec-3d; -ms-grid-column-align: end; justify-self: end;}
+.dec-3m {grid-area: dec-3m; -ms-grid-column-align: center; justify-self: center;}
 .dec-3s {grid-area: dec-3s;}
 
-.cd-1 {grid-area: cd-1; justify-self: center;}
-.cd-2 {grid-area: cd-2; justify-self: center;}
-.cd-3 {grid-area: cd-3; justify-self: center;}
+.cd-1 {grid-area: cd-1; -ms-grid-column-align: center; justify-self: center;}
+.cd-2 {grid-area: cd-2; -ms-grid-column-align: center; justify-self: center;}
+.cd-3 {grid-area: cd-3; -ms-grid-column-align: center; justify-self: center;}
 
-.decC-1d {grid-area: decC-1d; justify-self: end; font-weight: bold;}
-.decC-1m {grid-area: decC-1m; justify-self: center; font-weight: bold;}
+.decC-1d {grid-area: decC-1d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.decC-1m {grid-area: decC-1m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 .decC-1s {grid-area: decC-1s; font-weight: bold;}
-.decC-2d {grid-area: decC-2d; justify-self: end; font-weight: bold;}
-.decC-2m {grid-area: decC-2m; justify-self: center; font-weight: bold;}
+.decC-2d {grid-area: decC-2d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.decC-2m {grid-area: decC-2m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 .decC-2s {grid-area: decC-2s; font-weight: bold;}
-.decC-3d {grid-area: decC-3d; justify-self: end; font-weight: bold;}
-.decC-3m {grid-area: decC-3m; justify-self: center; font-weight: bold;}
+.decC-3d {grid-area: decC-3d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.decC-3m {grid-area: decC-3m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 .decC-3s {grid-area: decC-3s; font-weight: bold;}
 
 .btn7 {grid-area: btn7;}
@@ -834,7 +1036,11 @@ header button:hover {
 .btn9 {grid-area: btn9;}
 
 .lha-dec__update-info-section {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-column-gap: 1rem;
+    -moz-column-gap: 1rem;
     column-gap: 1rem;
     width: 62.5rem;
     margin: 1rem auto;
@@ -842,7 +1048,9 @@ header button:hover {
 }
 
 .lha-dec__update-info-message {
+    -ms-flex-preferred-size: 45%;
     flex-basis: 45%;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     height: 18rem;
     padding: 2rem;
@@ -864,12 +1072,15 @@ header button:hover {
 }
 
 .lha-dec__update-info-middle {
+    -ms-flex-preferred-size: 25%;
     flex-basis: 25%;
     height: 17.5rem;
     border: 4px solid var(--color-accent-100);
     border-radius: 2rem;
     background-color: transparent;
     overflow: hidden;
+    -webkit-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
     position: relative;
 }
@@ -888,6 +1099,8 @@ header button:hover {
     position: relative;
     padding-bottom: calc(57.50% + 44px);
     pointer-events: none;
+    -webkit-transition: all 1s;
+    -o-transition: all 1s;
     transition: all 1s;
 }
 
@@ -904,6 +1117,7 @@ header button:hover {
 }
 
 .lha-dec__update-info-btn {
+    -ms-flex-preferred-size: 30%;
     flex-basis: 30%;
     height: 18rem;
     border: 4px solid var(--color-accent-100);
@@ -913,12 +1127,24 @@ header button:hover {
     font-family: inherit;
     font-size: 1.5rem;
     cursor: pointer;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
     transition: all 0.5s;
 }
 
 .lha-dec__update-info-btn:hover {
+    -webkit-box-shadow: inset 0rem 20rem var(--color-neutral-100);
     box-shadow: inset 0rem 20rem var(--color-neutral-100);
     font-weight: bold;
+}
+
+@-webkit-keyframes opacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes opacity {
@@ -930,11 +1156,24 @@ header button:hover {
     }
 }
 
-@keyframes scale {
+@-webkit-keyframes scale {
     0% {
+        -webkit-transform: scale(0.5);
         transform: scale(0.5);
     }
     100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes scale {
+    0% {
+        -webkit-transform: scale(0.5);
+        transform: scale(0.5);
+    }
+    100% {
+        -webkit-transform: scale(1);
         transform: scale(1);
     }
 }
@@ -956,37 +1195,52 @@ header button:hover {
 .heading-30 {grid-area: heading-30; color: var(--color-primary-100);}
 .heading-31 {grid-area: heading-31; color: var(--color-primary-100);}
 
-.altC-1d {grid-area: altC-1d; justify-self: end; font-weight: bold;}
-.altC-1m {grid-area: altC-1m; justify-self: center; font-weight: bold;}
-.altC-2d {grid-area: altC-2d; justify-self: end; font-weight: bold;}
-.altC-2m {grid-area: altC-2m; justify-self: center; font-weight: bold;}
-.altC-3d {grid-area: altC-3d; justify-self: end; font-weight: bold;}
-.altC-3m {grid-area: altC-3m; justify-self: center; font-weight: bold;}
+.altC-1d {grid-area: altC-1d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altC-1m {grid-area: altC-1m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.altC-2d {grid-area: altC-2d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altC-2m {grid-area: altC-2m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.altC-3d {grid-area: altC-3d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altC-3m {grid-area: altC-3m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 
-.azimQ-1s {grid-area: azimQ-1s; justify-self: end; font-weight: bold;}
-.azimQ-1d {grid-area: azimQ-1d; justify-self: center; font-weight: bold;}
+.azimQ-1s {grid-area: azimQ-1s; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.azimQ-1d {grid-area: azimQ-1d; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 .azimQ-1ss {grid-area: azimQ-1ss; font-weight: bold;}
-.azimQ-2s {grid-area: azimQ-2s; justify-self: end; font-weight: bold;}
-.azimQ-2d {grid-area: azimQ-2d; justify-self: center; font-weight: bold;}
+.azimQ-2s {grid-area: azimQ-2s; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.azimQ-2d {grid-area: azimQ-2d; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 .azimQ-2ss {grid-area: azimQ-2ss; font-weight: bold;}
-.azimQ-3s {grid-area: azimQ-3s; justify-self: end; font-weight: bold;}
-.azimQ-3d {grid-area: azimQ-3d; justify-self: center; font-weight: bold;}
+.azimQ-3s {grid-area: azimQ-3s; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.azimQ-3d {grid-area: azimQ-3d; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 .azimQ-3ss {grid-area: azimQ-3ss; font-weight: bold;}
 
-.azimT-1 {grid-area: azimT-1; justify-self: center; font-weight: bold;}
-.azimT-2 {grid-area: azimT-2; justify-self: center; font-weight: bold;}
-.azimT-3 {grid-area: azimT-3; justify-self: center; font-weight: bold;}
+.azimT-1 {grid-area: azimT-1; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.azimT-2 {grid-area: azimT-2; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.azimT-3 {grid-area: azimT-3; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 
 .btn13 {grid-area: btn13;}
 .btn14 {grid-area: btn14;}
 .btn15 {grid-area: btn15;}
 
-@keyframes slide-in-left-azimuth {
+@-webkit-keyframes slide-in-left-azimuth {
     0% {
+        -webkit-transform: translate(-15rem, 0rem);
         transform: translate(-15rem, 0rem);
         opacity: 0;
     }
     100% {
+        -webkit-transform: translate(0rem, 0rem);
+        transform: translate(0rem, 0rem);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-left-azimuth {
+    0% {
+        -webkit-transform: translate(-15rem, 0rem);
+        transform: translate(-15rem, 0rem);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translate(0rem, 0rem);
         transform: translate(0rem, 0rem);
         opacity: 1;
     }
@@ -1027,68 +1281,68 @@ header button:hover {
 .heading-27 {grid-area: heading-27; color: var(--color-primary-100); display: none;}
 .heading-28 {grid-area: heading-28; color: var(--color-primary-100); display: none;}
 
-.altCopy-1d {grid-area: altCopy-1d; justify-self: end; font-weight: bold;}
-.altCopy-1m {grid-area: altCopy-1m; justify-self: center; font-weight: bold;}
-.altCopy-2d {grid-area: altCopy-2d; justify-self: end; font-weight: bold;}
-.altCopy-2m {grid-area: altCopy-2m; justify-self: center; font-weight: bold;}
-.altCopy-3d {grid-area: altCopy-3d; justify-self: end; font-weight: bold;}
-.altCopy-3m {grid-area: altCopy-3m; justify-self: center; font-weight: bold;}
+.altCopy-1d {grid-area: altCopy-1d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altCopy-1m {grid-area: altCopy-1m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.altCopy-2d {grid-area: altCopy-2d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altCopy-2m {grid-area: altCopy-2m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.altCopy-3d {grid-area: altCopy-3d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altCopy-3m {grid-area: altCopy-3m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 
-.index-1 {grid-area: index-1; justify-self: center;}
-.index-2 {grid-area: index-2; justify-self: center;}
-.index-3 {grid-area: index-3; justify-self: center;}
+.index-1 {grid-area: index-1; -ms-grid-column-align: center; justify-self: center;}
+.index-2 {grid-area: index-2; -ms-grid-column-align: center; justify-self: center;}
+.index-3 {grid-area: index-3; -ms-grid-column-align: center; justify-self: center;}
 
-.altObs-1d {grid-area: altObs-1d; justify-self: end; font-weight: bold;}
-.altObs-1m {grid-area: altObs-1m; justify-self: center; font-weight: bold;}
-.altObs-2d {grid-area: altObs-2d; justify-self: end; font-weight: bold;}
-.altObs-2m {grid-area: altObs-2m; justify-self: center; font-weight: bold;}
-.altObs-3d {grid-area: altObs-3d; justify-self: end; font-weight: bold;}
-.altObs-3m {grid-area: altObs-3m; justify-self: center; font-weight: bold;}
+.altObs-1d {grid-area: altObs-1d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altObs-1m {grid-area: altObs-1m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.altObs-2d {grid-area: altObs-2d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altObs-2m {grid-area: altObs-2m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.altObs-3d {grid-area: altObs-3d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altObs-3m {grid-area: altObs-3m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 
-.dip-1 {grid-area: dip-1; justify-self: center;}
-.dip-2 {grid-area: dip-2; justify-self: center;}
-.dip-3 {grid-area: dip-3; justify-self: center;}
+.dip-1 {grid-area: dip-1; -ms-grid-column-align: center; justify-self: center;}
+.dip-2 {grid-area: dip-2; -ms-grid-column-align: center; justify-self: center;}
+.dip-3 {grid-area: dip-3; -ms-grid-column-align: center; justify-self: center;}
 
-.altApr-1d {grid-area: altApr-1d; justify-self: end; font-weight: bold;}
-.altApr-1m {grid-area: altApr-1m; justify-self: center; font-weight: bold;}
-.altApr-2d {grid-area: altApr-2d; justify-self: end; font-weight: bold;}
-.altApr-2m {grid-area: altApr-2m; justify-self: center; font-weight: bold;}
-.altApr-3d {grid-area: altApr-3d; justify-self: end; font-weight: bold;}
-.altApr-3m {grid-area: altApr-3m; justify-self: center; font-weight: bold;}
+.altApr-1d {grid-area: altApr-1d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altApr-1m {grid-area: altApr-1m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.altApr-2d {grid-area: altApr-2d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altApr-2m {grid-area: altApr-2m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.altApr-3d {grid-area: altApr-3d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altApr-3m {grid-area: altApr-3m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 
-.tc-1 {grid-area: tc-1; justify-self: center;}
-.tc-2 {grid-area: tc-2; justify-self: center;}
-.tc-3 {grid-area: tc-3; justify-self: center;}
+.tc-1 {grid-area: tc-1; -ms-grid-column-align: center; justify-self: center;}
+.tc-2 {grid-area: tc-2; -ms-grid-column-align: center; justify-self: center;}
+.tc-3 {grid-area: tc-3; -ms-grid-column-align: center; justify-self: center;}
 
-.ac-1 {grid-area: ac-1; justify-self: center;}
-.ac-2 {grid-area: ac-2; justify-self: center;}
-.ac-3 {grid-area: ac-3; justify-self: center;}
+.ac-1 {grid-area: ac-1; -ms-grid-column-align: center; justify-self: center;}
+.ac-2 {grid-area: ac-2; -ms-grid-column-align: center; justify-self: center;}
+.ac-3 {grid-area: ac-3; -ms-grid-column-align: center; justify-self: center;}
 
-.ulc-1 {grid-area: ulc-1; justify-self: center;}
-.ulc-2 {grid-area: ulc-2; justify-self: center;}
-.ulc-3 {grid-area: ulc-3; justify-self: center;}
+.ulc-1 {grid-area: ulc-1; -ms-grid-column-align: center; justify-self: center;}
+.ulc-2 {grid-area: ulc-2; -ms-grid-column-align: center; justify-self: center;}
+.ulc-3 {grid-area: ulc-3; -ms-grid-column-align: center; justify-self: center;}
 
-.arc-1 {grid-area: arc-1; justify-self: center;}
-.arc-2 {grid-area: arc-2; justify-self: center;}
-.arc-3 {grid-area: arc-3; justify-self: center;}
+.arc-1 {grid-area: arc-1; -ms-grid-column-align: center; justify-self: center;}
+.arc-2 {grid-area: arc-2; -ms-grid-column-align: center; justify-self: center;}
+.arc-3 {grid-area: arc-3; -ms-grid-column-align: center; justify-self: center;}
 
-.altTrue-1d {grid-area: altTrue-1d; justify-self: end; font-weight: bold;}
-.altTrue-1m {grid-area: altTrue-1m; justify-self: center; font-weight: bold;}
-.altTrue-2d {grid-area: altTrue-2d; justify-self: end; font-weight: bold;}
-.altTrue-2m {grid-area: altTrue-2m; justify-self: center; font-weight: bold;}
-.altTrue-3d {grid-area: altTrue-3d; justify-self: end; font-weight: bold;}
-.altTrue-3m {grid-area: altTrue-3m; justify-self: center; font-weight: bold;}
+.altTrue-1d {grid-area: altTrue-1d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altTrue-1m {grid-area: altTrue-1m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.altTrue-2d {grid-area: altTrue-2d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altTrue-2m {grid-area: altTrue-2m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.altTrue-3d {grid-area: altTrue-3d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altTrue-3m {grid-area: altTrue-3m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 
-.altCCopy-1d {grid-area: altCCopy-1d; justify-self: end; font-weight: bold;}
-.altCCopy-1m {grid-area: altCCopy-1m; justify-self: center; font-weight: bold;}
-.altCCopy-2d {grid-area: altCCopy-2d; justify-self: end; font-weight: bold;}
-.altCCopy-2m {grid-area: altCCopy-2m; justify-self: center; font-weight: bold;}
-.altCCopy-3d {grid-area: altCCopy-3d; justify-self: end; font-weight: bold;}
-.altCCopy-3m {grid-area: altCCopy-3m; justify-self: center; font-weight: bold;}
+.altCCopy-1d {grid-area: altCCopy-1d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altCCopy-1m {grid-area: altCCopy-1m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.altCCopy-2d {grid-area: altCCopy-2d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altCCopy-2m {grid-area: altCCopy-2m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.altCCopy-3d {grid-area: altCCopy-3d; -ms-grid-column-align: end; justify-self: end; font-weight: bold;}
+.altCCopy-3m {grid-area: altCCopy-3m; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 
-.int-1 {grid-area: int-1; justify-self: center; font-weight: bold;}
-.int-2 {grid-area: int-2; justify-self: center; font-weight: bold;}
-.int-3 {grid-area: int-3; justify-self: center; font-weight: bold;}
+.int-1 {grid-area: int-1; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.int-2 {grid-area: int-2; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
+.int-3 {grid-area: int-3; -ms-grid-column-align: center; justify-self: center; font-weight: bold;}
 
 .btn10 {grid-area: btn10;}
 .btn11 {grid-area: btn11;}
@@ -1098,20 +1352,41 @@ header button:hover {
     width: 3rem;
 }
 
-@keyframes slide-in-right-intercept {
+@-webkit-keyframes slide-in-right-intercept {
     0% {
+        -webkit-transform: translate(15rem, 0rem);
         transform: translate(15rem, 0rem);
         opacity: 0;
     }
     100% {
+        -webkit-transform: translate(0rem, 0rem);
+        transform: translate(0rem, 0rem);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-right-intercept {
+    0% {
+        -webkit-transform: translate(15rem, 0rem);
+        transform: translate(15rem, 0rem);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translate(0rem, 0rem);
         transform: translate(0rem, 0rem);
         opacity: 1;
     }
 }
 
 .intercept-calculation__button {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     width: 62.5rem;
     height: 6rem;
@@ -1124,11 +1399,23 @@ header button:hover {
     font-family: inherit;
     font-size: 1.75rem;
     cursor: pointer;
+    -webkit-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
     transition: all 0.3s linear;
 }
 
 .intercept-calculation__button:hover {
     border-width: 0.5rem !important;
+}
+
+@-webkit-keyframes slide-in-bottom-intercept-btn {
+    0% {
+        position: relative;
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes slide-in-bottom-intercept-btn {
