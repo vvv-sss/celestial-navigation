@@ -1,36 +1,59 @@
-# Fix Position of the Vessel from Stars & Planets
+# Celestial Navigation · Sight Reduction Sheet
 
-This project of celestial navigation will guide you through the calculation process to get the necessary data for fixing of position of the vessel in the middle of the ocean.
+Fix the vessel's position from stars and planets with the intercept (Marcq St Hilaire) method.
 
-## About the project
+A guided calculation sheet for watch officers: you take the figures from the sextant and the Nautical Almanac, the sheet does the spherical trigonometry, shows every intermediate value exactly as on a paper form, and plots the fix.
 
-### Overview
+## Workflow
 
-Based on the previous maritime experience there are two different approaches for celestial fixing of the vessel's position: fully manual and fully auto using the software. First approach requires good understanding and knowledge of the process as well as takes a lot of time. On the other hand the auto process is like the black box where maritime officers have no idea what's going on. The main goal of my project is to combine this two methods and provide calculation sheet where maritime officers have guide what data to enter and from where to take it plus automative calculation of difficult formulas which economs a lot of time and keep knoweledge of the process always high.
+1. **Sights** — UTC time, estimated position, sextant altitude and height of eye for up to three bodies.
+2. **Almanac** — GHA (Aries for stars), SHA, v and d corrections, increment and declination. LHA and corrected declination are computed live.
+3. **Corrections** — index error, dip, refraction, additional / upper-limb / non-standard corrections. Dip and refraction suggestions are derived from your figures; table values can still be typed in.
+4. **Results** — calculated altitude, true and quadrantal azimuth, intercept (towards / away) per body, plus a plot of the lines of position and the least-squares fix. Earlier lines are advanced along the course for the run between sights.
 
-### How to use
+Everything you type stays in the browser (localStorage). Use **Worked example** to load the sample sights (Venus, Nunki, Alkaid · 2016‑10‑18) and **Reset** to start over.
 
-The calculation form is 100% intuitively understandable. Just fill up all necessary data fields and press the button. Every data field has pop-up message with the desired format to be entered. Don't be afraid to make mistakes as minor errors will be automatically formatted and major ones highlighted.  Once you press the button your calculation will be evaluated on the stage you are so you need to press the button again if you make some changes with your entered data. Every heading on the left side of the form with a question mark next to it is clickable and contains some theoretical information. On the presentation screen you can autofill all necessary data fields and check how it works or fully reset the form and start everything from zero. Enjoy!
+## Preview
 
-### Preview
+![Landing page](./preview/landing.png)
+![Step 1 · Sights](./preview/step-1-sights.png)
+![Step 2 · Almanac](./preview/step-2-almanac.png)
+![Step 3 · Corrections](./preview/step-3-corrections.png)
+![Step 4 · Results and fix](./preview/step-4-results.png)
 
-![](./preview/step-1.jpg)
-![](./preview/step-2.jpg)
-![](./preview/step-3.jpg)
-![](./preview/step-4.jpg)
+## Stack
 
-### Links
+- [Next.js 16](https://nextjs.org) (App Router, static export) · React 19 · TypeScript
+- [Tailwind CSS 4](https://tailwindcss.com) with [shadcn/ui](https://ui.shadcn.com)
+- [The Gridcn](https://thegridcn.com) — Tron‑inspired HUD components and the six colour themes (switchable in the header)
+- [zustand](https://zustand.docs.pmnd.rs) for persisted form state, [vitest](https://vitest.dev) for the navigation core
 
-[Celestial Navigation Calculation Program](https://vvv-sss.github.io/celestial-navigation/)
+The navigation maths lives in `lib/celestial/` and has no UI dependencies:
 
-### Built with
+| Module        | Contents                                                                                     |
+| ------------- | -------------------------------------------------------------------------------------------- |
+| `angle.ts`    | degrees ⇄ degrees‑minutes, 0–360° normalisation, formatting                                 |
+| `validate.ts` | lenient parsing and zero‑padded normalisation of every field type                            |
+| `reduce.ts`   | GHA/LHA, declination, Hc (altitude), Zn (azimuth via `atan2`), altitude corrections, intercept |
+| `fix.ts`      | lines of position, run advancement, least‑squares fix, angle‑of‑cut warning                  |
 
-- HTML5
-- CSS
-- Javascript
-- JQuery
+## Development
+
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm test           # vitest · navigation core
+npm run typecheck
+npm run lint
+npm run build      # static export to ./out
+```
+
+Add more Gridcn components with the shadcn CLI, for example `npx shadcn@latest add @thegridcn/radar`.
+
+## Deployment
+
+`.github/workflows/deploy.yml` builds the static export and publishes it to GitHub Pages (set the repository's Pages source to **GitHub Actions**). The base path is taken from `NEXT_PUBLIC_BASE_PATH`.
 
 ## Author
 
-- Volodymyr Serbulenko
-- E-mail: serbulenko1volodymyr@gmail.com
+Volodymyr Serbulenko · serbulenko1volodymyr@gmail.com
